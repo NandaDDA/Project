@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+  <h1 align="center"> Personal Notes</h1>
+  <ul class="list-group list-group-flush" id="notes">
+    {% for note in user.notes %}
+    <li class="list-group-item">
+      {{ note.data }}
+      <button type="button" class="close delete-button" onclick="deleteNote('{{ note.id }}')">
+        <span aria-hidden="true">&times;</span>
+        <div class="hover-message">This will permanently delete your note</div>
+      </button>
+    </li>
+    {% endfor %}
+  </ul>
+  <form method="POST">
+    <textarea name="note" id="note" class="form-control"></textarea>
+    <br />
+    <div align="center">
+      <button type="submit" class="btn btn-primary">Add Note</button>
+    </div>
+  </form>
+
+  <style>
+    /* Add styling for the hover message */
+    .hover-message {
+      display: none;
+      position: right;
+      top: 1%;
+      left: 5%;
+      transform: translateX(-50%);
+      padding: 5px;
+      background-color: #c0c0c0;
+      color: #000000;
+      border-radius: 3px;
+      size: 0.5cm 
+    }
+
+    /* Show the hover message when hovering over the delete button */
+    .delete-button:hover .hover-message {
+      display: block;
+    }
+  </style>
+{% endblock %}
